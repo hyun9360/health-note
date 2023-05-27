@@ -9,15 +9,20 @@ export default function CreateForm() {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    const workout = localStorage.getItem("workout")
-    let result = [name] as string[]
-
-    if (workout) {
-      const workouts = JSON.parse(workout) as string[]
-      result = [...workouts, name ]
-    } 
-
-    localStorage.setItem("workout", JSON.stringify(result))
+    try {
+      const workout = localStorage.getItem("workout")
+      let result = [name] as string[]
+  
+      if (workout) {
+        const workouts = JSON.parse(workout) as string[]
+        result = [...workouts, name ]
+      } 
+  
+      localStorage.setItem("workout", JSON.stringify(result))
+    } catch (error) {
+      localStorage.clear
+      alert("error")
+    }
 
     console.log(localStorage.getItem("workout"));
   }

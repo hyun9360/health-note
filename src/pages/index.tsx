@@ -1,13 +1,34 @@
 import Link from 'next/link'
+import { useEffect, useMemo } from 'react';
 
-function Home() {
+export default function Home() {
+  useEffect(() => {
+    console.log(localStorage.getItem("workout"))
+  },[])
+
+  const workouts = useMemo(() => {
+    try {
+      const localStorageWorkout = localStorage.getItem("workout")
+      if(!localStorageWorkout) return null
+
+      return JSON.parse(localStorageWorkout) as string[]
+    } catch (error) {
+      return null
+    }
+  }, [])
+
   return (
-    <ul>
-      <li>
-        <Link href="/workout/create">Create</Link>
-      </li>
-    </ul>
+    <main>
+      <div>
+          <Link href="/workout/create">Create</Link>
+      </div>
+      <ul>
+        {workouts && workouts.map((workout, index) => (
+          <li key={index}>
+            {workout}
+          </li>
+        ))}
+      </ul>
+    </main>
   )
 }
-
-export default Home

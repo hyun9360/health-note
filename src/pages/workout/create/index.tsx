@@ -1,3 +1,5 @@
+import { link } from 'fs';
+import Link from 'next/link'
 import { ChangeEvent, FormEvent, useState } from 'react';
 
 export default function CreateForm() {
@@ -19,20 +21,24 @@ export default function CreateForm() {
       } 
   
       localStorage.setItem("workout", JSON.stringify(result))
+      
     } catch (error) {
       localStorage.clear
       alert("error")
     }
 
-    console.log(localStorage.getItem("workout"));
+    console.log(localStorage.getItem("workout"))
   }
   
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="name">Name</label>
-      <input type="text" id="name" name="name" value={name} onChange={handleChange} />
+    <div>
+      <Link href="/">Home</Link>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="name">Name</label>
+        <input type="text" id="name" name="name" value={name} onChange={handleChange} />
 
-      <button type="submit">Submit</button>
-    </form>
+        <button type="submit">Submit</button>
+      </form>
+  </div>
   )
 }
